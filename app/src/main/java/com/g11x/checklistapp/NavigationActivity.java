@@ -29,6 +29,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.ChangeTransform;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,7 +69,14 @@ public abstract class NavigationActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+      getWindow().setSharedElementEnterTransition(new ChangeTransform());
+      getWindow().setSharedElementExitTransition(new ChangeTransform());
+    } else {
+      overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
     PreferredLanguageSupport.applyPreferredLanguage(this);
     final Activity thisActivity = NavigationActivity.this;
     baseLanguageChangeListener = new AppPreferences.LanguageChangeListener(NavigationActivity.this) {

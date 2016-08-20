@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -38,6 +39,7 @@ public class ChecklistActivity extends NavigationActivity {
   private FirebaseRecyclerAdapter<ChecklistItem, ChecklistItemHolder> checklistAdapter;
   private AppPreferences.LanguageChangeListener languageChangeListener;
   private Language language;
+  private String transitionName;
 
   @Override
   protected int getNavDrawerItemIndex() {
@@ -48,6 +50,8 @@ public class ChecklistActivity extends NavigationActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_checklist);
+
+    transitionName = getResources().getString(R.string.transition_name_checklist_title);
 
     language = AppPreferences.getLanguageOverride(this);
     languageChangeListener = new AppPreferences.LanguageChangeListener(this) {
@@ -85,7 +89,9 @@ public class ChecklistActivity extends NavigationActivity {
           public void onClick(View view) {
             Intent intent = new Intent(ChecklistActivity.this, ChecklistItemActivity.class);
             intent.putExtra("databaseRefUrl", getRef(position).toString());
-            startActivity(intent);
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(ChecklistActivity.this, itemHolder.itemView, transitionName);
+            startActivity(intent, options.toBundle());
           }
         });
       }

@@ -28,7 +28,8 @@
   <TextView
       android:layout_height="wrap_content"
       android:id="@+id/name"
-      android:text="@string/get_social_security_card"
+      android:transitionName="@string/transition_name_checklist_title"
+      tools:text="@string/get_social_security_card"
       android:textAppearance="@android:style/TextAppearance.Material.Headline"
       android:textAlignment="center"
       android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:text="@string/description_text"
+      tools:text="@string/description_text"
       android:id="@+id/description"
       app:layout_constraintLeft_toLeftOf="@+id/checklist_item"
       android:layout_marginLeft="20dp"
@@ -61,7 +62,7 @@
       app:layout_constraintHorizontal_bias="1.0"/>
 
   <Button
-      android:text="@string/get_directions"
+      tools:text="@string/get_directions"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/directions"

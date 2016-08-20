@@ -23,6 +23,7 @@
 
   <TextView
       android:id="@+id/info_text"
+      android:transitionName="@string/transition_name_checklist_title"
       style="@style/AppCardViewTitleTextStyle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />

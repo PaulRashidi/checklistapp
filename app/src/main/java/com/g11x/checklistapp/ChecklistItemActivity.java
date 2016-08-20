@@ -19,10 +19,14 @@ package com.g11x.checklistapp;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.ArcMotion;
+import android.transition.ChangeTransform;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -46,7 +50,12 @@ public class ChecklistItemActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+      getWindow().setSharedElementEnterTransition(new ChangeTransform());
+      getWindow().setSharedElementExitTransition(new ChangeTransform());
+    } else {
+      overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
     setContentView(R.layout.activity_checklist_item);
 
     language = AppPreferences.getLanguageOverride(this);
